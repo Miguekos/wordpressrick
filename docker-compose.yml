@@ -1,26 +1,26 @@
 version: "3.0"
 services:
-  mysql_desawordpress:
-    container_name: mysql_desawordpress
+  mysql:
+    container_name: ${containernamemysql}
     environment:
-      MYSQL_DATABASE: wordpress_desawordpress
+      MYSQL_DATABASE: ${containernamewordpress}
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/mysql_desawordpress/:/var/lib/mysql:rw
-  wordpress_desawordpress:
-    container_name: wordpress_desawordpress
+      - /usr/local/volumes/${containernamemysql}/:/var/lib/mysql:rw
+  wordpress:
+    container_name: ${containernamewordpress}
     depends_on:
-      - mysql_desawordpress
+      - ${containernamemysql}
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: desawordpress.apps.com.pe,www.desawordpress.apps.com.pe
-      VIRTUAL_HOST: desawordpress.apps.com.pe,www.desawordpress.apps.com.pe
-      WORDPRESS_DB_HOST: mysql_desawordpress:3306
-      WORDPRESS_DB_NAME: wordpress_desawordpress
+      LETSENCRYPT_HOST: ${dominio},www.${dominio}
+      VIRTUAL_HOST: ${dominio},www.${dominio}
+      WORDPRESS_DB_HOST: ${containernamemysql}:3306
+      WORDPRESS_DB_NAME: ${containernamewordpress}
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_USER: root
       WORDPRESS_TABLE_PREFIX: wp_
@@ -30,7 +30,7 @@ services:
         max-size: 200k
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/wordpress_desawordpress/wordpress-core:/var/www/html:rw
+      - /usr/local/volumes/${containernamewordpress}/wordpress-core:/var/www/html:rw
       - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
 networks:
