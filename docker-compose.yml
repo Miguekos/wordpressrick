@@ -1,6 +1,6 @@
 version: "3.0"
 services:
-  mysql:
+  ${containernamemysql}:
     container_name: ${containernamemysql}
     environment:
       MYSQL_DATABASE: ${containernamewordpress}
@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     volumes:
       - /usr/local/volumes/${containernamemysql}/:/var/lib/mysql:rw
-  wordpress:
+  ${containernamewordpress}:
     container_name: ${containernamewordpress}
     depends_on:
       - ${containernamemysql}
