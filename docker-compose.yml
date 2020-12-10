@@ -17,8 +17,8 @@ services:
       - mysqldev
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
-      VIRTUAL_HOST: hnslab.net,www.hnslab.net
+      LETSENCRYPT_HOST: devwordpress.apps.com.pe,www.devwordpress.apps.com.pe
+      VIRTUAL_HOST: devwordpress.apps.com.pe,www.devwordpress.apps.com.pe
       WORDPRESS_DB_HOST: mysqldev:3306
       WORDPRESS_DB_NAME: wordpress_dev
       WORDPRESS_DB_PASSWORD: password
