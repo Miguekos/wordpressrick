@@ -1,4 +1,4 @@
-version: '3.0'
+version: "3.0"
 services:
   mysqldev:
     container_name: mysql_dev
@@ -10,15 +10,15 @@ services:
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-    - /usr/local/volumes/devmysql/:/var/lib/mysql:rw
+      - /usr/local/volumes/devmysql/:/var/lib/mysql:rw
   wordpressdev:
     container_name: wordpress_dev
     depends_on:
-    - mysqldev
+      - mysqldev
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: devwordpress.apps.com.pe,www.devwordpress.apps.com.pe
-      VIRTUAL_HOST: devwordpress.apps.com.pe,www.devwordpress.apps.com.pe
+      LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
+      VIRTUAL_HOST: hnslab.net,www.hnslab.net
       WORDPRESS_DB_HOST: mysqldev:3306
       WORDPRESS_DB_NAME: wordpress_dev
       WORDPRESS_DB_PASSWORD: password
@@ -30,8 +30,8 @@ services:
         max-size: 200k
     restart: unless-stopped
     volumes:
-    - /usr/local/volumes/wordpress_dev/wordpress-core:/var/www/html:rw
-    - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
+      - /usr/local/volumes/wordpress_dev/wordpress-core:/var/www/html:rw
+      - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
 networks:
   default:
