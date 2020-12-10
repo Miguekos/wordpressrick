@@ -10,7 +10,7 @@ services:
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/devmysql/:/var/lib/mysql:rw
+      - /usr/local/volumes/hnslab/devmysql/:/var/lib/mysql:rw
   wordpressdev:
     container_name: wordpress_dev
     depends_on:
@@ -30,7 +30,7 @@ services:
         max-size: 200k
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/wordpress_dev/wordpress-core:/var/www/html:rw
+      - /usr/local/volumes/hnslab/wordpress_dev/wordpress-core:/var/www/html:rw
       - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
 networks:
