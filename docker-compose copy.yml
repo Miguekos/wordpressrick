@@ -1,0 +1,53 @@
+version: "3.0"
+services:
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8888:8080
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9999:80
+    environment:
+      - PMA_ARBITRARY=1
+
+  mysqldev:
+    container_name: mysql_dev
+    environment:
+      MYSQL_DATABASE: wordpress_dev
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+    image: mariadb:latest
+    restart: unless-stopped
+    volumes:
+      - /usr/local/volumes/hnslab/devmysql/:/var/lib/mysql:rw
+  wordpressdev:
+    container_name: wordpress_dev
+    depends_on:
+      - mysqldev
+    environment:
+      LETSENCRYPT_EMAIL: miguekos1233@gmail.com
+      LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
+      VIRTUAL_HOST: hnslab.net,www.hnslab.net
+      WORDPRESS_DB_HOST: mysqldev:3306
+      WORDPRESS_DB_NAME: wordpress_dev
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_USER: root
+      WORDPRESS_TABLE_PREFIX: wp_
+    image: wordpress:latest
+    logging:
+      options:
+        max-size: 200k
+    restart: unless-stopped
+    volumes:
+      - /usr/local/volumes/hnslab/wordpress_dev/wordpress-core:/var/www/html:rw
+      - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
+
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
