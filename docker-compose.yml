@@ -15,9 +15,9 @@ services:
       - PMA_ARBITRARY=1
 
   mysql_hnslab:
-    container_name: mysql_dev
+    container_name: mysql_hnslab
     environment:
-      MYSQL_DATABASE: wordpress_dev
+      MYSQL_DATABASE: wordpress_hnslab
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
@@ -26,15 +26,15 @@ services:
     volumes:
       - /usr/local/volumes/hnslab/devmysql/:/var/lib/mysql:rw
   wordpress_hnslab:
-    container_name: wordpress_dev
+    container_name: wordpress_hnslab
     depends_on:
       - mysql_hnslab
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
       LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
       VIRTUAL_HOST: hnslab.net,www.hnslab.net
-      WORDPRESS_DB_HOST: mysqldev:3306
-      WORDPRESS_DB_NAME: wordpress_dev
+      WORDPRESS_DB_HOST: mysql_hnslab:3306
+      WORDPRESS_DB_NAME: wordpress_hnslab
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_USER: root
       WORDPRESS_TABLE_PREFIX: wp_
