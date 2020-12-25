@@ -1,5 +1,23 @@
-version: "3.0"
+version: "3"
 services:
+  prueba:
+    image: nginx
+    restart: always
+    ports:
+      - "80"
+    volumes:
+      - ./:/usr/share/nginx/html:rw
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    # environment:
+    #   - VIRTUAL_HOST=prueba.apps.com.pe,www.prueba.apps.com.pe
+    #   - LETSENCRYPT_HOST=prueba.apps.com.pe,www.prueba.apps.com.pe
+    #   - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
+
+  php:
+    image: phpwordpress:1.0
+    volumes:
+      - ./:/usr/share/nginx/html:rw
+
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -8,40 +26,20 @@ services:
     environment:
       - PMA_ARBITRARY=1
 
-  mysql_hnslab:
-    container_name: mysql_hnslab
+  db:
+    container_name: mysql_prueba
     environment:
-      MYSQL_DATABASE: wordpress_hnslab
+      MYSQL_DATABASE: wordpress_prueba
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/hnslab/mysql_hnslab/:/var/lib/mysql:rw
-  wordpress_hnslab:
-    container_name: wordpress_hnslab
-    depends_on:
-      - mysql_hnslab
-    environment:
-      LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
-      VIRTUAL_HOST: hnslab.net,www.hnslab.net
-      WORDPRESS_DB_HOST: mysql_hnslab:3306
-      WORDPRESS_DB_NAME: wordpress_hnslab
-      WORDPRESS_DB_PASSWORD: password
-      WORDPRESS_DB_USER: root
-      WORDPRESS_TABLE_PREFIX: wp_
-    image: wordpress:latest
-    logging:
-      options:
-        max-size: 200k
-    restart: unless-stopped
-    volumes:
-      - /usr/local/volumes/hnslab/wordpress_hnslab/wordpress-core:/var/www/html:rw
-      - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
+      - /usr/local/volumes/prueba/mysql_prueba/:/var/lib/mysql:rw
 
-networks:
-  default:
-    external:
-      name: nginx-proxy_default
+# networks:
+#   default:
+#     external:
+#       name: nginx-proxy_default
+
