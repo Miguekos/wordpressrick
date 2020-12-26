@@ -14,7 +14,7 @@ services:
     #   - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
 
   php:
-    image: phpwordpress:1.0
+    image: miguekos1233/phpwordpress
     volumes:
       - ./:/usr/share/nginx/html:rw
 
