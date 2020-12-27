@@ -1,6 +1,6 @@
 version: "3"
 services:
-  inversionesarmebo:
+  migratewordpress:
     image: miguekos1233/php5-6-apache:1.0
     # expose:
       # - 80
@@ -11,7 +11,7 @@ services:
       - ./html:/var/www/html:rw
     environment:
       - VIRTUAL_HOST=migratewordpress.com,www.migratewordpress.com
-      # - LETSENCRYPT_HOST=inversionesarmebo.com,www.inversionesarmebo.com
+      # - LETSENCRYPT_HOST=migratewordpress.com,www.migratewordpress.com
       # - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
 
   # php:
@@ -27,10 +27,10 @@ services:
     environment:
       - PMA_ARBITRARY=1
 
-  mysql_inversionesarmebo:
-    container_name: mysql_inversionesarmebo
+  mysql_migratewordpress:
+    container_name: mysql_migratewordpress
     environment:
-      MYSQL_DATABASE: wordpress_inversionesarmebo
+      MYSQL_DATABASE: wordpress_migratewordpress
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
@@ -39,7 +39,7 @@ services:
     #   - 3301:3306
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/inversionesarmebo/mysql_inversionesarmebo/:/var/lib/mysql:rw
+      - /usr/local/volumes/migratewordpress/mysql_migratewordpress/:/var/lib/mysql:rw
 
 # networks:
 #   default:
