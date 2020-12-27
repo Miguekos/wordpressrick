@@ -34,6 +34,8 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
+    ports:
+      - 3001:3006
     restart: unless-stopped
     volumes:
       - /usr/local/volumes/inversionesarmebo/mysql_inversionesarmebo/:/var/lib/mysql:rw
@@ -42,4 +44,3 @@ networks:
   default:
     external:
       name: nginx-proxy_default
-
