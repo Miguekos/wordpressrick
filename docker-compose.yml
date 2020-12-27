@@ -3,6 +3,8 @@ services:
   migratewordpress:
     image: nginx
     restart: always
+    links: 
+      - php
     expose: 
       - "80"
     # ports:
