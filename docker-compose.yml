@@ -11,7 +11,7 @@ services:
       - ./html:/usr/share/nginx/html:rw
       - ./default.conf:/etc/nginx/conf.d/default.conf
     environment:
-      - VIRTUAL_HOST=migratewordpress.com,www.migratewordpress.com
+      - VIRTUAL_HOST=migratewordpress.apps.com.pe,www.migratewordpress.apps.com.pe
       # - LETSENCRYPT_HOST=migratewordpress.com,www.migratewordpress.com
       # - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
 
