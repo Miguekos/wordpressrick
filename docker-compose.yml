@@ -1,7 +1,7 @@
 version: "3"
 services:
   inversionesarmebo:
-    image: miguekos1233/php7-4-apache:2.0
+    image: miguekos1233/php5-6-apache:1.0
     expose:
       - 80
     # ports:
