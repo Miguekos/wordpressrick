@@ -2,17 +2,17 @@ version: "3"
 services:
   inversionesarmebo:
     image: miguekos1233/php5-6-apache:1.0
-    # expose:
-      # - 80
-    ports:
-      - 8989:80
+    expose:
+      - 80
+    # ports:
+    #   - 8989:80
     volumes:
       # - $PWD/html:/var/www/html
       - ./html:/var/www/html:rw
     environment:
-      - VIRTUAL_HOST=migratewordpress.com,www.migratewordpress.com
-      # - LETSENCRYPT_HOST=inversionesarmebo.com,www.inversionesarmebo.com
-      # - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
+      - VIRTUAL_HOST=inversionesarmebo.com,www.inversionesarmebo.com
+      - LETSENCRYPT_HOST=inversionesarmebo.com,www.inversionesarmebo.com
+      - LETSENCRYPT_EMAIL=miguekos1233@gmail.com
 
   # php:
   #   image: miguekos1233/phpwordpress:1.0
@@ -41,7 +41,7 @@ services:
     volumes:
       - /usr/local/volumes/inversionesarmebo/mysql_inversionesarmebo/:/var/lib/mysql:rw
 
-# networks:
-#   default:
-#     external:
-#       name: nginx-proxy_default
+networks:
+  default:
+    external:
+      name: nginx-proxy_default
