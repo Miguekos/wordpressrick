@@ -3,8 +3,10 @@ services:
   inversionesarmebo:
     image: nginx
     restart: always
-    ports:
+    expose: 
       - "80"
+    # ports:
+    #   - "80"
     volumes:
       - ./:/usr/share/nginx/html:rw
       - ./default.conf:/etc/nginx/conf.d/default.conf
@@ -26,7 +28,7 @@ services:
     environment:
       - PMA_ARBITRARY=1
 
-  db:
+  mysql_inversionesarmebo:
     container_name: mysql_inversionesarmebo
     environment:
       MYSQL_DATABASE: wordpress_inversionesarmebo
@@ -34,8 +36,8 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
-    ports:
-      - 3301:3306
+    # ports:
+    #   - 3301:3306
     restart: unless-stopped
     volumes:
       - /usr/local/volumes/inversionesarmebo/mysql_inversionesarmebo/:/var/lib/mysql:rw
