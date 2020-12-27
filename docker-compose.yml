@@ -17,8 +17,8 @@ services:
 
   php:
     image: miguekos1233/phpwordpress:1.0
-    volumes:
-      - ./:/usr/share/nginx/html:ro
+    # volumes:
+    #   - ./:/usr/share/nginx/html:ro
 
   phpmyadmin:
     image: phpmyadmin
