@@ -3,9 +3,9 @@ services:
   migratewordpress:
     image: nginx
     restart: always
-    links: 
+    links:
       - php
-    expose: 
+    expose:
       - "80"
     # ports:
     #   - "80"
@@ -19,8 +19,8 @@ services:
 
   php:
     image: miguekos1233/phpwordpress:1.0
-    # volumes:
-    #   - ./html:/usr/share/nginx/html:rw
+    volumes:
+      - ./html:/usr/share/nginx/html:rw
 
   phpmyadmin:
     image: phpmyadmin
