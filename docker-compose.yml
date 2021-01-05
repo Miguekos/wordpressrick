@@ -8,27 +8,27 @@ services:
     environment:
       - PMA_ARBITRARY=1
 
-  mysql_hnslab:
-    container_name: mysql_hnslab
+  mysql_hnslabfix:
+    container_name: mysql_hnslabfix
     environment:
-      MYSQL_DATABASE: wordpress_hnslab
+      MYSQL_DATABASE: wordpress_hnslabfix
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/hnslab/mysql_hnslab/:/var/lib/mysql:rw
-  wordpress_hnslab:
-    container_name: wordpress_hnslab
+      - /usr/local/volumes/hnslabfix/mysql_hnslabfix/:/var/lib/mysql:rw
+  wordpress_hnslabfix:
+    container_name: wordpress_hnslabfix
     depends_on:
-      - mysql_hnslab
+      - mysql_hnslabfix
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
       LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
       VIRTUAL_HOST: hnslab.net,www.hnslab.net
-      WORDPRESS_DB_HOST: mysql_hnslab:3306
-      WORDPRESS_DB_NAME: wordpress_hnslab
+      WORDPRESS_DB_HOST: mysql_hnslabfix:3306
+      WORDPRESS_DB_NAME: wordpress_hnslabfix
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_USER: root
       WORDPRESS_TABLE_PREFIX: wp_
@@ -38,7 +38,7 @@ services:
         max-size: 200k
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/hnslab/wordpress_hnslab/wordpress-core:/var/www/html:rw
+      - /usr/local/volumes/hnslabfix/wordpress_hnslabfix/wordpress-core:/var/www/html:rw
       - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
 networks:
