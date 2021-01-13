@@ -4,7 +4,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 9888:8080
+      - 9888:80
     environment:
       - PMA_ARBITRARY=1
 
