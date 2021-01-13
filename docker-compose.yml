@@ -4,7 +4,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 9999:80
+      - 9888:8080
     environment:
       - PMA_ARBITRARY=1
 
@@ -12,12 +12,12 @@ services:
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
-      - 9988:8080
+      - 9889:8080
     volumes:
       - /usr/local/volumes/hnslabfix/wordpress_hnslabfix/wordpress-core:/data
-      - /CONFIG_DIR:/config
-    environment:
-      - FB_BASEURL=/filebrowser
+      # - /CONFIG_DIR:/config
+    # environment:
+    #   - FB_BASEURL=/filebrowser
     restart: always
 
   mysql_hnslabfix:
