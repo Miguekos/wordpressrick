@@ -1,5 +1,25 @@
 version: "3.0"
 services:
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9888:80
+    environment:
+      - PMA_ARBITRARY=1
+
+  filebrowser:
+    image: hurlenko/filebrowser
+    user: "${UID}:${GID}"
+    ports:
+      - 9889:8080
+    volumes:
+      - /usr/local/volumes/wordpress_dev/wordpress-core:/data
+      # - /CONFIG_DIR:/config
+    # environment:
+    #   - FB_BASEURL=/filebrowser
+    restart: always
+
   mysqldev:
     container_name: mysql_dev
     environment:
