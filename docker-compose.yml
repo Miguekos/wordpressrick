@@ -4,7 +4,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 9888:80
+      - 9778:80
     environment:
       - PMA_ARBITRARY=1
 
@@ -12,7 +12,7 @@ services:
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
-      - 9889:8080
+      - 9779:8080
     volumes:
       - /usr/local/volumes/wordpress_dev/wordpress-core:/data
       # - /CONFIG_DIR:/config
