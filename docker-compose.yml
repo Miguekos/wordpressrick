@@ -4,7 +4,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 9888:80
+      - 9778:80
     environment:
       - PMA_ARBITRARY=1
 
@@ -12,35 +12,35 @@ services:
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
-      - 9889:8080
+      - 9779:8080
     volumes:
-      - /usr/local/volumes/hnslabfix/wordpress_hnslabfix/wordpress-core:/data
+      - /usr/local/volumes/armebo/wordpress_armebo/wordpress-core:/data
       # - /CONFIG_DIR:/config
     # environment:
     #   - FB_BASEURL=/filebrowser
     restart: always
 
-  mysql_hnslabfix:
-    container_name: mysql_hnslabfix
+  mysql_armebo:
+    container_name: mysql_armebo
     environment:
-      MYSQL_DATABASE: wordpress_hnslabfix
+      MYSQL_DATABASE: wordpress_armebo
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/hnslabfix/mysql_hnslabfix/:/var/lib/mysql:rw
-  wordpress_hnslabfix:
-    container_name: wordpress_hnslabfix
+      - /usr/local/volumes/armebo/mysql_armebo/:/var/lib/mysql:rw
+  wordpress_armebo:
+    container_name: wordpress_armebo
     depends_on:
-      - mysql_hnslabfix
+      - mysql_armebo
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: hnslab.net,www.hnslab.net
-      VIRTUAL_HOST: hnslab.net,www.hnslab.net
-      WORDPRESS_DB_HOST: mysql_hnslabfix:3306
-      WORDPRESS_DB_NAME: wordpress_hnslabfix
+      LETSENCRYPT_HOST: inversionesarmebo.com,www.inversionesarmebo.com
+      VIRTUAL_HOST: inversionesarmebo.com,www.inversionesarmebo.com
+      WORDPRESS_DB_HOST: mysql_armebo:3306
+      WORDPRESS_DB_NAME: wordpress_armebo
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_USER: root
       WORDPRESS_TABLE_PREFIX: wp_
@@ -50,7 +50,7 @@ services:
         max-size: 200k
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/hnslabfix/wordpress_hnslabfix/wordpress-core:/var/www/html:rw
+      - /usr/local/volumes/armebo/wordpress_armebo/wordpress-core:/var/www/html:rw
       - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
 networks:
