@@ -4,7 +4,7 @@ services:
     image: phpmyadmin
     restart: always
     ports:
-      - 9668:80
+      - ${PORT_phpmyadmin}:80
     environment:
       - PMA_ARBITRARY=1
 
@@ -12,35 +12,35 @@ services:
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
-      - 9669:8080
+      - ${PORT_FILE}:8080
     volumes:
-      - /usr/local/volumes/armebo/wordpress_armebo/wordpress-core:/data
+      - /usr/local/volumes/${NAME}/wordpress_${NAME}/wordpress-core:/data
       # - /CONFIG_DIR:/config
     # environment:
     #   - FB_BASEURL=/filebrowser
     restart: always
 
-  mysql_armebo:
-    container_name: mysql_armebo
+  mysql:
+    container_name: mysql_${NAME}
     environment:
-      MYSQL_DATABASE: wordpress_armebo
+      MYSQL_DATABASE: wordpress_${NAME}
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: root
     image: mariadb:latest
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/armebo/mysql_armebo/:/var/lib/mysql:rw
-  wordpress_armebo:
-    container_name: wordpress_armebo
+      - /usr/local/volumes/${NAME}/mysql_${NAME}/:/var/lib/mysql:rw
+  wordpress:
+    container_name: wordpress_${NAME}
     depends_on:
-      - mysql_armebo
+      - mysql_${NAME}
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: inversionesarmebo.com,www.inversionesarmebo.com
-      VIRTUAL_HOST: inversionesarmebo.com,www.inversionesarmebo.com
-      WORDPRESS_DB_HOST: mysql_armebo:3306
-      WORDPRESS_DB_NAME: wordpress_armebo
+      LETSENCRYPT_HOST: ${URL_1},${URL_2}
+      VIRTUAL_HOST: ${URL_1},${URL_2}
+      WORDPRESS_DB_HOST: mysql_${NAME}:3306
+      WORDPRESS_DB_NAME: wordpress_${NAME}
       WORDPRESS_DB_PASSWORD: password
       WORDPRESS_DB_USER: root
       WORDPRESS_TABLE_PREFIX: wp_
@@ -50,7 +50,7 @@ services:
         max-size: 200k
     restart: unless-stopped
     volumes:
-      - /usr/local/volumes/armebo/wordpress_armebo/wordpress-core:/var/www/html:rw
+      - /usr/local/volumes/${NAME}/wordpress_${NAME}/wordpress-core:/var/www/html:rw
       - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
 networks:
