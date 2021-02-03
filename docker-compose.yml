@@ -34,7 +34,7 @@ services:
   wordpress:
     container_name: wordpress_${NAME}
     depends_on:
-      - mysql_${NAME}
+      - mysql
     environment:
       LETSENCRYPT_EMAIL: miguekos1233@gmail.com
       LETSENCRYPT_HOST: ${URL_1},${URL_2}
