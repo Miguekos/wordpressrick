@@ -1,6 +1,9 @@
 version: "3.0"
 services:
   phpmyadmin:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     image: phpmyadmin
     restart: always
     ports:
@@ -9,6 +12,9 @@ services:
       - PMA_ARBITRARY=1
 
   filebrowser:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
@@ -21,6 +27,9 @@ services:
     restart: always
 
   mysqldev:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     container_name: mysql_dev
     environment:
       MYSQL_DATABASE: wordpress_dev
@@ -32,6 +41,9 @@ services:
     volumes:
       - /usr/local/volumes/devmysql/:/var/lib/mysql:rw
   wordpressdev:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     container_name: wordpress_dev
     depends_on:
       - mysqldev
