@@ -1,6 +1,9 @@
 version: "3.0"
 services:
   phpmyadmin:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     image: phpmyadmin
     restart: always
     ports:
@@ -9,6 +12,9 @@ services:
       - PMA_ARBITRARY=1
 
   filebrowser:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
@@ -21,6 +27,9 @@ services:
     restart: always
 
   mysql_hnslabfix:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     container_name: mysql_hnslabfix
     environment:
       MYSQL_DATABASE: wordpress_hnslabfix
@@ -32,6 +41,9 @@ services:
     volumes:
       - /usr/local/volumes/hnslabfix/mysql_hnslabfix/:/var/lib/mysql:rw
   wordpress_hnslabfix:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     container_name: wordpress_hnslabfix
     depends_on:
       - mysql_hnslabfix
