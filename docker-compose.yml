@@ -21,6 +21,9 @@ services:
     restart: always
 
   mysql_armebo:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     container_name: mysql_armebo
     environment:
       MYSQL_DATABASE: wordpress_armebo
@@ -32,6 +35,9 @@ services:
     volumes:
       - /usr/local/volumes/armebo/mysql_armebo/:/var/lib/mysql:rw
   wordpress_armebo:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     container_name: wordpress_armebo
     depends_on:
       - mysql_armebo
