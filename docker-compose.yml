@@ -1,6 +1,9 @@
 version: "3.0"
 services:
   phpmyadmin:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     image: phpmyadmin
     restart: always
     ports:
@@ -9,6 +12,9 @@ services:
       - PMA_ARBITRARY=1
 
   filebrowser:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 1
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
