@@ -1,6 +1,9 @@
 version: "3.0"
 services:
   mysql_desawordpress:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
     container_name: mysql_desawordpress
     environment:
       MYSQL_DATABASE: wordpress_desawordpress
@@ -12,6 +15,9 @@ services:
     volumes:
       - /usr/local/volumes/mysql_desawordpress/:/var/lib/mysql:rw
   wordpress_desawordpress:
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5
     container_name: wordpress_desawordpress
     depends_on:
       - mysql_desawordpress
