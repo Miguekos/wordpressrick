@@ -1,9 +1,9 @@
 version: "3.0"
 services:
   phpmyadmin:
-    mem_limit: 512m
-    mem_reservation: 128M
-    cpus: 0.5
+    # mem_limit: 512m
+    # mem_reservation: 128M
+    # cpus: 0.5
     image: phpmyadmin
     restart: always
     ports:
@@ -12,9 +12,9 @@ services:
       - PMA_ARBITRARY=1
 
   filebrowser:
-    mem_limit: 512m
-    mem_reservation: 128M
-    cpus: 0.5
+    # mem_limit: 512m
+    # mem_reservation: 128M
+    # cpus: 0.5
     image: hurlenko/filebrowser
     user: "${UID}:${GID}"
     ports:
@@ -27,9 +27,9 @@ services:
     restart: always
 
   mysql:
-    mem_limit: 512m
-    mem_reservation: 128M
-    cpus: 0.5
+    # mem_limit: 512m
+    # mem_reservation: 128M
+    # cpus: 0.5
     container_name: mysql_${NAME}
     environment:
       MYSQL_DATABASE: wordpress_${NAME}
@@ -42,16 +42,18 @@ services:
       - /usr/local/volumes/${NAME}/mysql_${NAME}/:/var/lib/mysql:rw
   
   wordpress:
-    mem_limit: 512m
-    mem_reservation: 128M
-    cpus: 0.5
+    ports:
+      - 80:8080
+    # mem_limit: 512m
+    # mem_reservation: 128M
+    # cpus: 0.5
     container_name: wordpress_${NAME}
     depends_on:
       - mysql
     environment:
-      LETSENCRYPT_EMAIL: miguekos1233@gmail.com
-      LETSENCRYPT_HOST: ${URL_1},${URL_2}
-      VIRTUAL_HOST: ${URL_1},${URL_2}
+      # LETSENCRYPT_EMAIL: miguekos1233@gmail.com
+      # LETSENCRYPT_HOST: ${URL_1},${URL_2}
+      # VIRTUAL_HOST: ${URL_1},${URL_2}
       WORDPRESS_DB_HOST: mysql_${NAME}:3306
       WORDPRESS_DB_NAME: wordpress_${NAME}
       WORDPRESS_DB_PASSWORD: password
@@ -66,7 +68,7 @@ services:
       - /usr/local/volumes/${NAME}/wordpress_${NAME}/wordpress-core:/var/www/html:rw
       - ./conf.d/php.ini:/usr/local/etc/php/conf.d/php.ini:rw
 
-networks:
-  default:
-    external:
-      name: nginx-proxy_default
+# networks:
+#   default:
+#     external:
+#       name: nginx-proxy_default
