@@ -31,6 +31,7 @@ services:
     restart: unless-stopped
     volumes:
       - /usr/local/volumes/${NAME}/mysql_${NAME}/:/var/lib/mysql:rw
+      
   wordpress:
     container_name: wordpress_${NAME}
     depends_on:
